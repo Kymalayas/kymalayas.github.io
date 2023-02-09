@@ -37,6 +37,21 @@ function Nav(props){
     </ol>
   </nav>
 }
+function Create(props){
+  return <article>
+    <h2>Create</h2>
+    <form onSubmit={event=>{
+      event.preventDefault();
+      const title = event.target.title.value;
+      const body = event.target.body.value;
+      props.onCreate(title,body)
+    }}>
+      <p><input type="text" name="title" placeholder="title"/></p>
+      <p><textarea name="body" placeholder="body"></textarea></p>
+      <p><input type="submit" value="Create"></input></p>
+    </form>
+  </article>
+}
 function App(){
   // const _mode = useState('WELCOME');
   // const mode = _mode[0];
@@ -44,11 +59,12 @@ function App(){
   // console.log('_mode', _mode) ;
   const [mode, setMode] = useState('WELCOME') ;
   const [id, setId] = useState(null);
-  const topics = [
+  const [nextId, setNextId] = useState(4);
+  const [topics, setTopics] = useState([
     {id : 1, title : 'html', body :'html is ...'},
     {id : 2, title : 'css', body :'css is ...'},
-    {id : 3, title : 'javascript', body :'js is ...'}
-  ]
+    {id : 3, title : 'javascript', body :'javascript is ...'}
+  ]);
   let content = null;
   if(mode === 'WELCOME'){
     content = <Article title="☆ Welcom to React world" body="- 리액트에서는 사용자정의 사용자정의 태그를 컴포넌트라고 부른다."></Article>
@@ -62,6 +78,16 @@ function App(){
       }
     }
     content = <Article title={title} body={body}></Article>
+  } else if(mode === 'CREATE'){
+    content = <Create onCreate={(_title, _body)=>{
+      const newTopic = {id:nextId, title:_title, body:_body}
+      const newTopics = [...topics];
+      newTopics.push(newTopic);
+      setTopics(newTopics);
+      setMode('READ');
+      setId(nextId);
+      setNextId(nextId+1);
+    }}></Create>
   }
   return (
     <div>
@@ -74,12 +100,18 @@ function App(){
       }}></Nav>     
       <p></p>
       {content}
+      <p></p>
+      <a href="/create" onClick={event=>{
+        event.preventDefault();
+        setMode('CREATE');
+      }}>Create</a>
+
       <Article title="☆ Welcom to React world" body="- 리액트에서는 사용자정의 사용자정의 태그를 컴포넌트라고 부른다."></Article>
       <Article title="☆ Thnx u" body="Congratuation for learning props, me."></Article>
       <p></p>
       <br></br>
       <br></br>
-      <a href='https://youtu.be/kctNCMFxciQ'> https://youtu.be/kctNCMFxciQ ← 요기 할 차례 </a>
+      <a href='https://www.youtube.com/watch?v=bW_WOrYzVWw'> 9강 ← 요기 할 차례 </a>
     </div>
   )
 }
