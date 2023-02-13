@@ -1,5 +1,5 @@
-# 2023-02-08
-## 목록 안에서 링크를 설치하고 그 링크가 이벤트를 호출할 때 어떤 입력값을 주는 방법
-## 이벤트를 가진 컴포넌트를 만들 수 있는 사람이 되었다.
+# 목적
+## 리액트로 웹앱 만드는 방법을 배워 보기
 
-
+# 레퍼런스
+## 유투버 생활코딩님<'https://www.youtube.com/watch?v=AoMv0SIjZL8&list=PLuHgQVnccGMCOGstdDZvH41x0Vtvwyxu7'>
