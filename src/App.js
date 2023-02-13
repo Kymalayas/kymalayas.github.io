@@ -53,17 +53,24 @@ function Create(props){
   </article>
 }
 function Update(props){
+  const [title, setTitle] = useState(props.title);
+  const [body, setBody] = useState(props.body);
   return <article>
-    <h2>Create</h2>
+    <h2>Update</h2>
     <form onSubmit={event=>{
       event.preventDefault();
       const title = event.target.title.value;
       const body = event.target.body.value;
       props.onUpdate(title,body)
     }}>
-      <p><input type="text" name="title" placeholder="title"/></p>
-      <p><textarea name="body" placeholder="body"></textarea></p>
-      <p><input type="submit" value="Create"></input></p>
+      <p><input type="text" name="title" placeholder="title" value={title} onChange={event=>{
+        console.log(event.target.value);
+        setTitle(event.target.value);
+      }}/></p>
+      <p><textarea name="body" placeholder="body" value={body} onChange={event=>{
+        setBody(event.target.value) ;
+      }}></textarea></p>
+      <p><input type="submit" value="Update"></input></p>
     </form>
   </article>
 }
@@ -87,17 +94,28 @@ function App(){
   } else if(mode === 'READ'){
     let title, body = null;
     for(let i=0; i<topics.length; i++){
-      console.log(topics[i].id, id);
       if(topics[i].id === id){
         title = topics[i].title;
         body = topics[i].body;
       }
     }
     content = <Article title={title} body={body}></Article>
-    contextControl = <li><a href={'/update'+id} onClick={event=>{
-      event.preventDefault();
-      setMode('UPDATE');
-    }}>Update</a></li>
+    contextControl = <> 
+      <li><a href={'/update'+id} onClick={event=>{
+        event.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a></li>
+      <li><input type="button" value ="Delete" onClick={()=>{
+        const newTopics = []
+        for(let i=0; i<topics.length; i++){
+          if(topics[i].id !==  id){
+            newTopics.push(topics[i]);
+          }
+        }
+        setTopics(newTopics);
+        setMode('WELCOME')
+      }} /></li>
+    </>
   } else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
       const newTopic = {id:nextId, title:_title, body:_body}
@@ -108,9 +126,27 @@ function App(){
       setId(nextId);
       setNextId(nextId+1);
     }}></Create>
+    
   } else if(mode ==='UPDATE'){
-    content = <Update onUpdate= {(title, body)=>{
-
+    let title, body = null;
+    for(let i=0; i<topics.length; i++){
+      if(topics[i].id === id){
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Update title={title} body={body} onUpdate={(title, body)=>{
+      console.log(title, body);
+      const newTopics =[...topics]
+      const updatedTopic = {id:id, title:title, body:body}      
+      for(let i=0; i<newTopics.length; i++){
+        if(newTopics[i].id === id){
+          newTopics[i]= updatedTopic;
+          break;
+        }
+      }
+      setTopics(newTopics)
+      setMode('READ');
     }}></Update>
   }
   return (
@@ -134,18 +170,19 @@ function App(){
 
 
 
-
-
-
-
       <Article title="☆ Welcom to React world" body="- 리액트에서는 사용자정의 태그를 컴포넌트라고 부른다."></Article>
       <Article title="☆ Thnx u" body="Congratuation for learning props, me."></Article>
       <p></p>
       <br></br>
       <br></br>
-      <a href='https://www.youtube.com/watch?v=bW_WOrYzVWw'> 9강 ← 6분 45초 볼 차례 </a>
+      <a href='https://www.youtube.com/watch?v=AoMv0SIjZL8&list=PLuHgQVnccGMCOGstdDZvH41x0Vtvwyxu7'> 리액트 강의 일독 완료 </a>
       <br></br>
-      강의는 105행, 내 코드는 113행을 보면 된다.
+      다음 목표는 이독!!!! Redux와 PostcreSQL도 공부한다!!
+      <br></br>
+      <br></br>
+      <h2>Memo</h2>
+      <h4>업데이트에서 주의할 것은 수정일 경우 기존의 값이 밸류로 주입되었을 때는 프롭에서 스테이트로 갈아탄다.</h4>
+      <h4>그리고 값이 바뀔 때마다 바뀐 값을 스테이트로 바꿔서 그 값을 다시 피드백 받아야 한다.</h4>
     </div>
   )
 }
