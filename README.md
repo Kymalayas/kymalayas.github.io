@@ -15,3 +15,5 @@
 [마크다운(Markdown) 가이드, 문법 정리 및 작성 규칙](https://aboneu.tistory.com/485)
 
 [마크다운 사용법 총정리](https://heropy.blog/2017/09/30/markdown/)
+
+[VSCode를 마크다운(Markdown) 편집기로 사용하는 방법](https://sianux1209.github.io/etc/markdown_editor_vscode/)

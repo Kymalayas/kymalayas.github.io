@@ -2,7 +2,6 @@ import React from 'react' ;
 import './App.css';
 import {useState} from 'react' ; 
 
-
 function Article(props){
   console.log(props,'props',props.title)
   return  <article>
@@ -183,8 +182,69 @@ function App(){
       <h2>Memo</h2>
       <h4>업데이트에서 주의할 것은 수정일 경우 기존의 값이 밸류로 주입되었을 때는 프롭에서 스테이트로 갈아탄다.</h4>
       <h4>그리고 값이 바뀔 때마다 바뀐 값을 스테이트로 바꿔서 그 값을 다시 피드백 받아야 한다.</h4>
+      <br></br>
+      <h4>iframe 예제</h4>
+      <iframe width="600" height="300" src="https://aboooks.tistory.com/205" name="test" frameborder="1" align="left"></iframe>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      
+      <h4>ol 태그(ordered list)를 사용하면 아래와 같다.</h4>
+      <ol>
+        <li>영어</li>
+        <li>수학</li>
+        <li>과학</li>
+      </ol>
+      <br></br>
+      <h4>ul(unordered) 태그를 사용하면 아래와 같다.</h4>
+      <ul>
+        <li>영어</li>
+        <li>수학</li>
+        <li>과학</li>
+      </ul>
+      <br></br>
+      <h4>dl 태그(definition list)를 사용하면 아래와 같다.</h4>
+      <dl>
+        <li>영어</li>
+        <li>수학</li>
+        <li>과학</li>
+      </dl>
+
+
+
+
+      <p></p>
+      <p></p>
+
+
     </div>
   )
 }
+function Example() {
+  //새로운 state 변수를 선언하고, count라 부르겠습니다.
+  const [count,setCount] = useState(0)
+
+  return (
+    <div>
+      <p>you clicked {count} times</p>
+        <button onClick={()=> setCount(count + 1)}>Click me</button>
+
+    </div>
+  )
+}
+
 
 export default App;
